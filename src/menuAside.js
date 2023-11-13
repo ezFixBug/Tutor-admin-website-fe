@@ -10,7 +10,9 @@ import {
   mdiTelevisionGuide,
   mdiResponsive,
   mdiPalette,
-  mdiReact
+  mdiReact,
+  mdiAccountGroup,
+  mdiBookmarkBoxMultipleOutline
 } from '@mdi/js'
 
 export default [
@@ -20,9 +22,14 @@ export default [
     label: 'Dashboard'
   },
   {
-    to: '/tables',
-    label: 'Tables',
-    icon: mdiTable
+    to: '/tutors',
+    label: 'Gia sư',
+    icon: mdiAccountGroup
+  },
+  {
+    to: '/courses',
+    label: 'Khóa học',
+    icon: mdiBookmarkBoxMultipleOutline
   },
   {
     to: '/forms',

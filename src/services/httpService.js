@@ -11,7 +11,7 @@ class HttpService {
 
   constructor() {
     this.http = axios.create();
-    this.app_url = import.meta.env.VITE_APP_API_URL + '/admin';
+    this.app_url = import.meta.env.VITE_APP_API_URL;
     this.init();
   }
 

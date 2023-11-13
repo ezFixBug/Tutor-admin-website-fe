@@ -27,14 +27,25 @@ const routes = [
   },
   {
     meta: {
-      title: 'Tables'
+      title: 'Gia sư'
     },
     beforeEnter: (to, from, next) => {
       authGuard(to, from, next);
     },
-    path: '/tables',
-    name: 'tables',
-    component: () => import('@/views/TablesView.vue')
+    path: '/tutors',
+    name: 'tutors',
+    component: () => import('@/views/tutors/Tutors.vue')
+  },
+  {
+    meta: {
+      title: 'Khóa học'
+    },
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/courses',
+    name: 'courses',
+    component: () => import('@/views/courses/Courses.vue')
   },
   {
     meta: {
@@ -90,7 +101,15 @@ const routes = [
     path: '/error',
     name: 'error',
     component: () => import('@/views/ErrorView.vue')
-  }
+  },
+  {
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/detail-tutor/:tutor_id',
+    name: 'detail-tutor',
+    component: () => import('@/views/tutors/DetailTutor.vue')
+  },
 ]
 
 const router = createRouter({

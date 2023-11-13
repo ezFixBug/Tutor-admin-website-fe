@@ -16,6 +16,7 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import { createToast } from 'mosha-vue-toastify'
 import 'mosha-vue-toastify/dist/style.css'
+import { computed } from 'vue'
 
 const form = reactive({
   email: null,
@@ -51,6 +52,23 @@ const submit = async () => {
   }
   is_loading.value = false
 }
+
+const componentClass = computed(() => {
+  const base = [
+    'inline-flex',
+    'justify-center',
+    'items-center',
+    'whitespace-nowrap',
+    'focus:outline-none',
+    'transition-colors',
+    'focus:ring',
+    'duration-150',
+    'border',
+  ]
+
+
+  return base
+})
 </script>
 
 <template>
@@ -80,9 +98,7 @@ const submit = async () => {
         </FormField>
 
         <template #footer>
-          <BaseButtons>
-            <BaseButton type="submit" color="info" label="Login" />
-          </BaseButtons>
+          <BaseButton @click="submit" color="info" label="Submit">Login</BaseButton>
         </template>
       </CardBox>
     </SectionFullScreen>

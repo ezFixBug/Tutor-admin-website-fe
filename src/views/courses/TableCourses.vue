@@ -11,25 +11,14 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import $http from '@/services/httpService'
 import get from 'lodash/get'
 
-defineProps({
-  checkable: Boolean,
+const props = defineProps({
+  courses: Array
 })
 
 const mainStore = useMainStore()
 
 const is_loading = ref(false)
 
-const items = ref([])
-
-onMounted(async () => {
-  is_loading.value = true
-  const res = await $http.get('/tutors', )
-
-  if (get(res, 'data.result', false)) {
-    items.value = res.data.tutors
-  }
-  is_loading.value = false
-})
 const isModalActive = ref(false)
 
 const isModalDangerActive = ref(false)
@@ -41,10 +30,10 @@ const currentPage = ref(0)
 const checkedRows = ref([])
 
 const itemsPaginated = computed(() =>
-  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+  props.courses.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
 )
 
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+const numPages = computed(() => Math.ceil(props.courses.length / perPage.value))
 
 const currentPageHuman = computed(() => currentPage.value + 1)
 
@@ -58,18 +47,15 @@ const pagesList = computed(() => {
   return pagesList
 })
 
-const remove = (arr, cb) => {
-  const newArr = []
+const formatDate = (inputDate) => {
+  const date = new Date(inputDate)
 
-  arr.forEach((item) => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
 
-  return newArr
+  return `${year}-${month}-${day}`
 }
-
 </script>
 
 <template>
@@ -88,42 +74,41 @@ const remove = (arr, cb) => {
     <thead>
       <tr>
         <th />
-        <th>Họ và tên</th>
-        <th>Email</th>
-        <th>Đang là</th>
-        <th>Học vấn</th>
-        <th>Trạng thái</th>
+        <th>Tiêu đề</th>
+        <th>Tên người tạo</th>
+        <th>Ngày bắt đầu</th>
+        <th>Loại khóa học</th>
+        <th>Mô tả</th>
         <th />
       </tr>
     </thead>
     <tbody>
       <tr v-for="client in itemsPaginated" :key="client.id">
         <td class="border-b-0 lg:w-6 before:hidden">
-          <UserAvatar :image="client.avatar" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
+          <UserAvatar :image="client.image ?? null" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
         </td>
         <td data-label="Name">
-          {{ client.full_name }}
+          {{ client.title }}
         </td>
         <td data-label="Company">
-          {{ client.email }}
+          {{ client.user.full_name ?? null }}
         </td>
         <td data-label="City">
-          {{ client.job ? client.job.name : null }}
+          {{ client.start_date }}
         </td>
         <td data-label="Educatio">
-          {{ client.education }}
+          {{ client.type_cd === 1 ? 'Học tại nhà' : 'Học online' }}
         </td>
-        <td data-label="sattus">
-          {{ client.status_cd === 1 ? 'Đang chờ duyệt' : 'Đã duyệt' }}
+        <td data-label="sattsus">
+          {{ client.description }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
             <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
+              color="info"
+              :icon="mdiEye"
               small
-              @click="isModalDangerActive = true"
+              @click="$router.push({ name: 'detail-tutor', params: { tutor_id: client.id } })"
             />
           </BaseButtons>
         </td>

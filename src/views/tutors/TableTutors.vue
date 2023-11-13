@@ -11,25 +11,14 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import $http from '@/services/httpService'
 import get from 'lodash/get'
 
-defineProps({
-  checkable: Boolean,
+const props = defineProps({
+  tutors: Array,
 })
 
 const mainStore = useMainStore()
 
 const is_loading = ref(false)
 
-const items = ref([])
-
-onMounted(async () => {
-  is_loading.value = true
-  const res = await $http.get('/tutors', )
-
-  if (get(res, 'data.result', false)) {
-    items.value = res.data.tutors
-  }
-  is_loading.value = false
-})
 const isModalActive = ref(false)
 
 const isModalDangerActive = ref(false)
@@ -41,10 +30,10 @@ const currentPage = ref(0)
 const checkedRows = ref([])
 
 const itemsPaginated = computed(() =>
-  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+  props.tutors.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
 )
 
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+const numPages = computed(() => Math.ceil(props.tutors.length / perPage.value))
 
 const currentPageHuman = computed(() => currentPage.value + 1)
 
@@ -57,18 +46,6 @@ const pagesList = computed(() => {
 
   return pagesList
 })
-
-const remove = (arr, cb) => {
-  const newArr = []
-
-  arr.forEach((item) => {
-    if (!cb(item)) {
-      newArr.push(item)
-    }
-  })
-
-  return newArr
-}
 
 </script>
 
@@ -108,23 +85,17 @@ const remove = (arr, cb) => {
           {{ client.email }}
         </td>
         <td data-label="City">
-          {{ client.job ? client.job.name : null }}
+          {{ client.job.name }}
         </td>
         <td data-label="Educatio">
           {{ client.education }}
         </td>
         <td data-label="sattus">
-          {{ client.status_cd === 1 ? 'Đang chờ duyệt' : 'Đã duyệt' }}
+          {{ client.status_cd === 1 ? 'Đã duyệt' : 'Đang chờ duyệt' }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
+            <BaseButton color="info" :icon="mdiEye" small @click="$router.push({name: 'detail-tutor', params: {tutor_id: client.id}})" />
           </BaseButtons>
         </td>
       </tr>
