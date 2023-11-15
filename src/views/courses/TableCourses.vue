@@ -108,7 +108,7 @@ const formatDate = (inputDate) => {
               color="info"
               :icon="mdiEye"
               small
-              @click="$router.push({ name: 'detail-tutor', params: { tutor_id: client.id } })"
+              @click="$router.push({ name: 'detail-course', params: { course_id: client.id } })"
             />
           </BaseButtons>
         </td>
