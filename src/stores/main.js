@@ -8,10 +8,7 @@ export const useMainStore = defineStore('main', () => {
 
   const userAvatar = computed(
     () =>
-      `https://api.dicebear.com/7.x/avataaars/svg?seed=${userEmail.value.replace(
-        /[^a-z0-9]+/gi,
-        '-'
-      )}`
+      `https://cdn-icons-png.flaticon.com/512/4919/4919646.png`
   )
 
   const isFieldFocusRegistered = ref(false)
