@@ -34,11 +34,11 @@ class HttpService {
       },
       (error) => {
         console.log(error);
-        if (error.response && error.response.status === 401) {
-          this.showError('Vui lòng đăng nhập!');
-          location.href = '/dang-nhap';
-          return;
-        }
+        // if (error.response && error.response.status === 401) {
+        //   this.showError('Vui lòng đăng nhập!');
+        //   location.href = '/login';
+        //   return;
+        // }
         if (error.response && error.response.status === 422) {
           return { data: { result: false, errors: error.response.data.errors, status: 422 } };
         }

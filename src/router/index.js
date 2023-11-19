@@ -110,6 +110,14 @@ const routes = [
     name: 'detail-tutor',
     component: () => import('@/views/tutors/DetailTutor.vue')
   },
+  {
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/detail-course/:course_id',
+    name: 'detail-course',
+    component: () => import('@/views/courses/DetailCourse.vue')
+  },
 ]
 
 const router = createRouter({

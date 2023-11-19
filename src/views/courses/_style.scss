@@ -1,0 +1,38 @@
+@import '../../assets/styles/paritials/_mixins.scss';
+@import '../../assets/styles/paritials/_sidebar.scss';
+@import '../../assets/styles/paritials/_cards.scss';
+@import '../../assets/styles/paritials/_custom.scss';
+@import '../../assets/styles/paritials/_button.scss';
+@import '../../assets/styles/paritials/_general.scss';
+@import '../../assets/styles/paritials/_common.scss';
+
+.ribbon-blue-bg {
+  background: rgba(53, 143, 247, 0.1) !important;
+  color: #358FF7 !important;
+}
+.ribbon {
+  display: inline-block;
+  padding-right: 8px;
+  padding-left: 8px;
+  line-height: 22px;
+  background-color: rgba(246, 138, 3, 0.1);
+  color: #F68A03;
+  font-size: 11px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.icon-element-sm {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+
+  &:hover {
+    background-color: #dbd5d5;
+
+    .fa-heart{
+      color: #fff;
+    }
+  }
+}
