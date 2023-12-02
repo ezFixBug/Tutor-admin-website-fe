@@ -65,13 +65,13 @@ export default {
     const res = await $http.get('/admin/courses', { status_cd: 1 })
 
     if (get(res, 'data.result', false)) {
-      this.courses_approve = res.data.courses
+      this.courses_waiting = res.data.courses
     }
 
     const response = await $http.get('/admin/courses', { status_cd: 2 })
 
     if (get(response, 'data.result', false)) {
-      this.courses_waiting = response.data.courses
+      this.courses_approve = response.data.courses
     }
     this.is_loading = false
   }

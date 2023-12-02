@@ -11,6 +11,7 @@ import NavBar from '@/components/NavBar.vue'
 import NavBarItemPlain from '@/components/NavBarItemPlain.vue'
 import AsideMenu from '@/components/AsideMenu.vue'
 import FooterBar from '@/components/FooterBar.vue'
+import $auth from '@/services/authService'
 
 const layoutAsidePadding = 'xl:pl-60'
 
@@ -33,6 +34,8 @@ const menuClick = (event, item) => {
 
   if (item.isLogout) {
     //
+    $auth.clear();
+    window.location.href = "/Login";
   }
 }
 </script>
