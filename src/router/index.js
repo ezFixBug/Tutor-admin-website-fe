@@ -47,17 +47,17 @@ const routes = [
     name: 'courses',
     component: () => import('@/views/courses/Courses.vue')
   },
-  {
-    meta: {
-      title: 'Forms'
-    },
-    beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
-    },
-    path: '/forms',
-    name: 'forms',
-    component: () => import('@/views/FormsView.vue')
-  },
+  // {
+  //   meta: {
+  //     title: 'Forms'
+  //   },
+  //   beforeEnter: (to, from, next) => {
+  //     authGuard(to, from, next);
+  //   },
+  //   path: '/forms',
+  //   name: 'forms',
+  //   component: () => import('@/views/FormsView.vue')
+  // },
   {
     meta: {
       title: 'Profile'
@@ -68,39 +68,6 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/ProfileView.vue')
-  },
-  {
-    meta: {
-      title: 'Ui'
-    },
-    beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
-    },
-    path: '/ui',
-    name: 'ui',
-    component: () => import('@/views/UiView.vue')
-  },
-  {
-    meta: {
-      title: 'Responsive layout'
-    },
-    beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
-    },
-    path: '/responsive',
-    name: 'responsive',
-    component: () => import('@/views/ResponsiveView.vue')
-  },
-  {
-    meta: {
-      title: 'Error'
-    },
-    beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
-    },
-    path: '/error',
-    name: 'error',
-    component: () => import('@/views/ErrorView.vue')
   },
   {
     beforeEnter: (to, from, next) => {
@@ -117,6 +84,17 @@ const routes = [
     path: '/detail-course/:course_id',
     name: 'detail-course',
     component: () => import('@/views/courses/DetailCourse.vue')
+  },
+  {
+    meta: {
+      title: 'Chương trình khuyến mãi'
+    },
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/coupons',
+    name: 'coupons',
+    component: () => import('@/views/coupons/Coupons.vue')
   },
 ]
 

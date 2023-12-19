@@ -107,7 +107,7 @@ const componentClass = computed(() => {
 </script>
 
 <template>
-  <component
+  <button
     :is="is"
     :class="componentClass"
     :href="href"
@@ -118,5 +118,5 @@ const componentClass = computed(() => {
   >
     <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
     <span v-if="label" :class="labelClass">{{ label }}</span>
-  </component>
+  </button>
 </template>

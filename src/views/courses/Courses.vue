@@ -1,4 +1,3 @@
-
 <template>
   <spinner :is_loading="is_loading" />
   <LayoutAuthenticated>
@@ -26,28 +25,19 @@
 </template>
 
 <script>
-import { mdiMonitorCellphone, mdiTableBorder, mdiTableOff, mdiGithub } from '@mdi/js'
 import SectionMain from '@/components/SectionMain.vue'
-import NotificationBar from '@/components/NotificationBar.vue'
-import TableSampleClients from '@/components/TableSampleClients.vue'
 import CardBox from '@/components/CardBox.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
 import TableCourses from './TableCourses.vue'
 import $http from '@/services/httpService'
 import get from 'lodash/get'
 
 export default {
   components: {
-    CardBoxComponentEmpty,
-    BaseButton,
     SectionTitleLineWithButton,
     LayoutAuthenticated,
     CardBox,
-    TableSampleClients,
-    NotificationBar,
     SectionMain,
     TableCourses
   },
