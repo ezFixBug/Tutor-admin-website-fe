@@ -12,7 +12,6 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseButtons from '@/components/BaseButtons.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
-import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
 import NotificationBarInCard from '@/components/NotificationBarInCard.vue'
 
 const selectOptions = [
@@ -39,6 +38,7 @@ const customElementsForm = reactive({
 
 const submit = () => {
   //
+  alert(12313);
 }
 
 const formStatusWithHeader = ref(true)

@@ -47,7 +47,8 @@ const props = defineProps({
   required: Boolean,
   borderless: Boolean,
   transparent: Boolean,
-  ctrlKFocus: Boolean
+  ctrlKFocus: Boolean,
+  disabled: Boolean,
 })
 
 const emit = defineEmits(['update:modelValue', 'setRef'])
@@ -65,7 +66,8 @@ const inputElClass = computed(() => {
     'dark:placeholder-gray-400',
     computedType.value === 'textarea' ? 'h-24' : 'h-12',
     props.borderless ? 'border-0' : 'border',
-    props.transparent ? 'bg-transparent' : 'bg-white dark:bg-slate-800'
+    props.transparent ? 'bg-transparent' : 'bg-white dark:bg-slate-800',
+    props.disabled && 'opacity-70 bg-gray-200'
   ]
 
   if (props.icon) {
@@ -160,6 +162,7 @@ if (props.ctrlKFocus) {
       :type="computedType"
       :class="inputElClass"
       style="padding-left: 35px !important"
+      :disabled="disabled"
     />
     <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
   </div>

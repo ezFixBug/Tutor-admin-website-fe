@@ -13,7 +13,12 @@ defineProps({
   help: {
     type: String,
     default: null
-  }
+  },
+  memo: {
+    type: String,
+    default: null
+  },
+  required: Boolean
 })
 
 const slots = useSlots()
@@ -36,7 +41,14 @@ const wrapperClass = computed(() => {
 
 <template>
   <div class="mb-6 last:mb-0">
-    <label v-if="label" :for="labelFor" class="block font-bold mb-2">{{ label }}</label>
+    <div class="flex items-center mb-0.5 space-x-2">
+      <label v-if="label" :for="labelFor" class="block font-bold mb-0">
+        {{ label }} <span v-if="required" class="text-red-500">*</span>
+      </label>
+      <span v-if="memo" class="text-xs text-red-500 dark:text-slate-400 block h-full">
+        ({{ memo }})
+      </span>
+    </div>
     <div :class="wrapperClass">
       <slot />
     </div>
