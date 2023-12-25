@@ -164,7 +164,7 @@ export default {
           user_id: tutor_id,
           object_id: tutor_id,
           created_at: this.getDateTimeNow(),
-          type_cd: 1,
+          type_cd: 4,
           content: 'Admin đã duyệt yêu cầu trở thành gia sư của bạn!',
           url: { path: '/' },
           is_read: false

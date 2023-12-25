@@ -78,7 +78,6 @@ const formatDate = (inputDate) => {
         <th>Tên người tạo</th>
         <th>Ngày bắt đầu</th>
         <th>Loại khóa học</th>
-        <th>Mô tả</th>
         <th />
       </tr>
     </thead>
@@ -98,9 +97,6 @@ const formatDate = (inputDate) => {
         </td>
         <td data-label="Educatio">
           {{ client.type_cd === 1 ? 'Học tại nhà' : 'Học online' }}
-        </td>
-        <td data-label="sattsus">
-          {{ client.description }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>

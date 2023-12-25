@@ -27,10 +27,10 @@ export default [
     label: 'Khuyến mãi',
     icon: mdiAccountCash
   },
-    {
-    to: '/forms',
-    label: 'Forms',
-    icon: mdiSquareEditOutline
-  },
+  //   {
+  //   to: '/forms',
+  //   label: 'Forms',
+  //   icon: mdiSquareEditOutline
+  // },
 
 ]
