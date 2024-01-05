@@ -13,8 +13,6 @@ const routes = [
     component: () => import('@/views/LoginView.vue')
   },
   {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
       title: 'Dashboard'
     },
@@ -46,6 +44,17 @@ const routes = [
     path: '/courses',
     name: 'courses',
     component: () => import('@/views/courses/Courses.vue')
+  },
+  {
+    meta: {
+      title: 'Người dùng'
+    },
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/users',
+    name: 'users',
+    component: () => import('@/views/users/UsersList.vue')
   },
   // {
   //   meta: {
