@@ -17,7 +17,12 @@
       <template #footer>
         <div class="flex justify-between">
           <a-button key="back" @click="handleCancel">Trờ về</a-button>
-          <a-button v-if="props.user.status_cd !== 0" key="submit" type="primary" danger @click="handleUpdateStatusUser"
+          <a-button
+            v-if="props.user.status_cd !== 0"
+            key="submit"
+            type="primary"
+            danger
+            @click="handleUpdateStatusUser"
             >Khoá tài khoản</a-button
           >
         </div>
@@ -63,15 +68,19 @@ export default {
     const reasonReports = [
       {
         type: 1,
-        description: 'Lý do 1'
+        description: 'Nội dung không phù hợp'
       },
       {
         type: 2,
-        description: 'Lý do 2'
+        description: 'Giả mạo ai đó'
       },
       {
         type: 3,
-        description: 'Lý do 3'
+        description: 'Gian lận và lừa đảo'
+      },
+      {
+        type: 4,
+        description: 'Khác'
       }
     ]
     const handleUpdateStatusUser = () => {
@@ -108,7 +117,7 @@ export default {
     },
 
     formatCreatedAt(date) {
-      return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+      return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 }

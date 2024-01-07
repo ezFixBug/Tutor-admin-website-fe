@@ -291,8 +291,19 @@
                       >
                         Duyệt khóa học
                       </button>
-                      <button class="btn theme-btn mt-3 w-100 btn-register-course" v-else>
+                      <button
+                        v-else-if="course.status_cd == 2"
+                        class="btn theme-btn mt-3 w-100 btn-register-course"
+                        @click="updateStatus"
+                      >
                         Đã duyệt
+                      </button>
+                      <button
+                        v-else-if="course.status_cd == 3"
+                        class="btn theme-btn mt-3 w-100 btn-register-course"
+                        @click="updateStatus"
+                      >
+                        Mở khoá
                       </button>
                     </div>
                   </div>
@@ -359,7 +370,7 @@
                   <h3 class="card-title fs-18 pb-2">Thẻ khóa học</h3>
                   <div class="divider"><span></span></div>
                   <ul class="generic-list-item generic-list-item-boxed d-flex flex-wrap fs-15">
-                    <li class="mr-2" v-for="tag in list_tags" :key="tag">
+                    <li v-for="tag in list_tags" :key="tag" class="mr-2">
                       <a href="#" onclick="return false;">{{ tag.label }}</a>
                     </li>
                   </ul>
@@ -389,10 +400,6 @@ import {
 } from '@/services/firebaseService'
 import { createToast } from 'mosha-vue-toastify'
 export default {
-  created() {
-    this.getDetailCourse()
-  },
-
   components: {
     LayoutAuthenticated
   },
@@ -418,6 +425,9 @@ export default {
     isLike() {
       return this.course.is_like
     }
+  },
+  created() {
+    this.getDetailCourse()
   },
 
   methods: {
@@ -449,11 +459,11 @@ export default {
           created_at: this.getDateTimeNow(),
           type_cd: 1,
           content: 'Admin đã duyệt khóa học của bạn!',
-          url: { name: 'courses'},
+          url: { name: 'courses' },
           is_read: false
-        });
+        })
 
-        this.$router.push({ name: 'courses'});
+        this.$router.push({ name: 'courses' })
       }
       this.is_loading = false
     },
@@ -478,6 +488,21 @@ export default {
       const seconds = String(now.getSeconds()).padStart(2, '0')
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+    },
+    async updateStatus() {
+      const res = await $http.post(`/admin/courses/${this.course.id}/block`, {
+        status_cd: this.course.status_cd === 2 ? 3 : 2
+      })
+      if (get(res, 'data.result', false)) {
+        this.getDetailCourse()
+        createToast(
+          `Đã ${this.course.status_cd === 2 ? 'khoá' : 'mở'} thành công tài khoản người dùng`,
+          {
+            type: this.course.status_cd === 2 ? 'warning' : 'success',
+            timeout: 3000
+          }
+        )
+      }
     }
   }
 }

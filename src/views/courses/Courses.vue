@@ -10,7 +10,7 @@
       </SectionTitleLineWithButton>
 
       <CardBox class="mb-6" has-table>
-        <TableCourses :courses="courses_waiting" />
+        <TableCourses :courses="courses_pending" />
       </CardBox>
 
       <SectionTitleLineWithButton
@@ -20,6 +20,19 @@
       <CardBox>
         <TableCourses :courses="courses_approve" />
       </CardBox>
+      <SectionTitleLineWithButton :icon="mdiTableOff" title="Danh sách khoá học bị khiếu nại" />
+      <a-tabs v-model:activeKey="activeKey">
+        <a-tab-pane key="1" tab="Đã duyệt">
+          <CardBox class="mb-6" has-table>
+            <TableCourses :courses="courses_baned" />
+          </CardBox>
+        </a-tab-pane>
+        <a-tab-pane key="2" tab="Chờ duyệt" force-render>
+          <CardBox class="mb-6" has-table>
+            <TableReportedCourses :courses="courses_reported" @create-success="initData" />
+          </CardBox>
+        </a-tab-pane>
+      </a-tabs>
     </SectionMain>
   </LayoutAuthenticated>
 </template>
@@ -30,6 +43,7 @@ import CardBox from '@/components/CardBox.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
 import TableCourses from './TableCourses.vue'
+import TableReportedCourses from './TableReportedCourses.vue'
 import $http from '@/services/httpService'
 import get from 'lodash/get'
 
@@ -39,32 +53,62 @@ export default {
     LayoutAuthenticated,
     CardBox,
     SectionMain,
-    TableCourses
+    TableCourses,
+    TableReportedCourses
   },
 
   data() {
     return {
       is_loading: false,
-      courses_waiting: [],
-      courses_approve: []
+      courses_pending: [],
+      courses_approve: [],
+      courses_reported: [],
+      courses_baned: [],
+      activeKey: '1'
     }
   },
 
   async created() {
     this.is_loading = true
-    const res = await $http.get('/admin/courses', { status_cd: 1 })
-
-    if (get(res, 'data.result', false)) {
-      this.courses_waiting = res.data.courses
-    }
-
-    const response = await $http.get('/admin/courses', { status_cd: 2 })
-
-    if (get(response, 'data.result', false)) {
-      this.courses_approve = response.data.courses
-    }
+    this.initData()
     this.is_loading = false
+  },
+
+  methods: {
+    async initData() {
+      this.getPendingCourses()
+      this.getApproveCourses()
+      this.getBanCourses()
+      this.getReportedCourses()
+    },
+
+    async getPendingCourses() {
+      const res = await $http.get('/admin/courses', { status_cd: 1 })
+
+      if (get(res, 'data.result', false)) {
+        this.courses_pending = res.data.courses
+      }
+    },
+    async getApproveCourses() {
+      const response = await $http.get('/admin/courses', { status_cd: 2 })
+
+      if (get(response, 'data.result', false)) {
+        this.courses_approve = response.data.courses
+      }
+    },
+    async getBanCourses() {
+      const response = await $http.get('/admin/courses', { status_cd: 3 })
+
+      if (get(response, 'data.result', false)) {
+        this.courses_baned = response.data.courses
+      }
+    },
+    async getReportedCourses() {
+      const res = await $http.get('/admin/courses/reported')
+      if (get(res, 'data.result', false)) {
+        this.courses_reported = res.data.courses
+      }
+    }
   }
 }
 </script>
-
