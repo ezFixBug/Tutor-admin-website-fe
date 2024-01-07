@@ -63,15 +63,19 @@ export default {
     const reasonReports = [
       {
         type: 1,
-        description: 'Lý do 1'
+        description: 'Nội dung không phù hợp'
       },
       {
         type: 2,
-        description: 'Lý do 2'
+        description: 'Giả mạo ai đó'
       },
       {
         type: 3,
-        description: 'Lý do 3'
+        description: 'Gian lận và lừa đảo'
+      },
+      {
+        type: 4,
+        description: 'Khác'
       }
     ]
     const handleUpdateStatusUser = () => {
