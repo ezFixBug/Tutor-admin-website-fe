@@ -17,7 +17,12 @@
       <template #footer>
         <div class="flex justify-between">
           <a-button key="back" @click="handleCancel">Trờ về</a-button>
-          <a-button v-if="props.user.status_cd !== 0" key="submit" type="primary" danger @click="handleUpdateStatusUser"
+          <a-button
+            v-if="props.user.status_cd !== 0"
+            key="submit"
+            type="primary"
+            danger
+            @click="handleUpdateStatusUser"
             >Khoá tài khoản</a-button
           >
         </div>
@@ -112,7 +117,7 @@ export default {
     },
 
     formatCreatedAt(date) {
-      return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+      return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 }

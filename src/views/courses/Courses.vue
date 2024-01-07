@@ -20,7 +20,7 @@
       <CardBox>
         <TableCourses :courses="courses_approve" />
       </CardBox>
-      <SectionTitleLineWithButton :icon="mdiTableOff" title="Danh sách khoá học bị tố cáo" />
+      <SectionTitleLineWithButton :icon="mdiTableOff" title="Danh sách khoá học bị khiếu nại" />
       <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane key="1" tab="Đã duyệt">
           <CardBox class="mb-6" has-table>
@@ -29,10 +29,7 @@
         </a-tab-pane>
         <a-tab-pane key="2" tab="Chờ duyệt" force-render>
           <CardBox class="mb-6" has-table>
-            <TableReportedCourses
-              :courses="courses_reported"
-              @create-success="console.log(123123)"
-            />
+            <TableReportedCourses :courses="courses_reported" @create-success="initData" />
           </CardBox>
         </a-tab-pane>
       </a-tabs>
@@ -73,13 +70,18 @@ export default {
 
   async created() {
     this.is_loading = true
-    this.getPendingCourses()
-    this.getApproveCourses()
-    this.getReportedCourses()
+    this.initData()
     this.is_loading = false
   },
 
   methods: {
+    async initData() {
+      this.getPendingCourses()
+      this.getApproveCourses()
+      this.getBanCourses()
+      this.getReportedCourses()
+    },
+
     async getPendingCourses() {
       const res = await $http.get('/admin/courses', { status_cd: 1 })
 

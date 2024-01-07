@@ -5,7 +5,6 @@ import $http from '@/services/httpService'
 import get from 'lodash/get'
 import { createToast } from 'mosha-vue-toastify'
 import ReasonReportList from '@/views/users/components/ReasonReportList.vue'
-import UserAvatar from '@/components/UserAvatar.vue'
 
 const props = defineProps({
   courses: {
@@ -61,10 +60,28 @@ const closeReasonReportModal = () => {
   open.value = false
 }
 
-const handleBlockUser = () => {
-  closeReasonReportModal();
+const handleBlockCourse = () => {
+  closeReasonReportModal()
+  onUpdateBlockCourse(courseSelected.id)
 }
 
+const onUpdateBlockCourse = async (courseId) => {
+  const course = props.courses.find((course) => course.id == courseId);
+  if(!course){
+    return;
+  }
+
+  const res = await $http.post(`/admin/courses/${course.id}/block`, {
+    status_cd: course.status_cd === 2 ? 3 : 2
+  })
+  if (get(res, 'data.result', false)) {
+    createToast(`Đã ${course.status_cd === 3 ? 'khoá' : 'mở'} thành công tài khoản người dùng`, {
+      type: course.status_cd === 1 ? 'warning' : 'success',
+      timeout: 3000
+    })
+    emits('createSuccess')
+  }
+}
 </script>
 
 <template>
@@ -77,7 +94,7 @@ const handleBlockUser = () => {
         <p>{{ record.user.full_name }}</p>
       </template>
       <template v-else-if="column.dataIndex === 'image'">
-        <img :src="record.image" style="height: 50px;" />
+        <img :src="record.image" style="height: 50px" />
       </template>
       <template v-else-if="column.dataIndex === 'operation'">
         <a-space warp>
@@ -91,7 +108,7 @@ const handleBlockUser = () => {
   <ReasonReportList
     :open="open"
     :user="courseSelected"
-    @on-confirm-block="handleBlockUser"
+    @on-confirm-block="handleBlockCourse"
     @close-reason-report-modal="closeReasonReportModal"
   />
 </template>
