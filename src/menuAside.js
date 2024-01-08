@@ -3,7 +3,8 @@ import {
   mdiAccountGroup,
   mdiAccountCash,
   mdiBookmarkBoxMultipleOutline,
-  mdiAccount
+  mdiAccount,
+  mdiCash
 } from '@mdi/js'
 
 export default [
@@ -31,6 +32,10 @@ export default [
     to: '/users',
     label: 'Người dùng',
     icon: mdiAccount
+  },{
+    to: '/payments',
+    label: 'Giao dịch',
+    icon: mdiCash
   },
   //   {
   //   to: '/forms',

@@ -104,6 +104,17 @@ const routes = [
     path: '/coupons',
     name: 'coupons',
     component: () => import('@/views/coupons/Coupons.vue')
+  }, 
+  {
+    meta: {
+      title: 'Quản lý giao dịch'
+    },
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next);
+    },
+    path: '/payments',
+    name: 'payments',
+    component: () => import('@/views/payment/PaymentList.vue')
   },
 ]
 
