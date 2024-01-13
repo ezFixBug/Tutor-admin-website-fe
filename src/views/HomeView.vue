@@ -44,6 +44,14 @@ const getStatistics = async () => {
         }
       ]
     }
+    PaymentsTutorChartData.value = {
+      labels: statistics.value.payments_tutor?.map((item) => item.label),
+      datasets: [
+        {
+          data: statistics.value.payments_tutor?.map((item) => item.value || 0)
+        }
+      ]
+    }
   }
 }
 
@@ -57,10 +65,13 @@ const PaymentsCourseChartData = ref({
   labels: [],
   datasets: []
 })
+const PaymentsTutorChartData = ref({
+  labels: [],
+  datasets: []
+})
 
 const handleFilter = () => {
   getStatistics()
-  console.log(12312);
 }
 
 const filterYear = [2024, 2023, 2022, 2021]
@@ -77,26 +88,8 @@ const filter = reactive({
   <spinner :is_loading="is_loading" />
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiChartPie" title="Thống kê giao dịch">
-        <div class="flex space-x-2">
-          <div class="space-x-2">
-            <label for="filter_year">Năm</label>
-            <select id="filter_year" v-model="filter.year" @change="handleFilter">
-              <option v-for="year in filterYear" :key="year" :value="year">{{ year }}</option>
-            </select>
-          </div>
-          <div class="space-x-2">
-            <label for="filter_month">Tháng</label>
-            <select id="filter_month" v-model="filter.month" @change="handleFilter">
-              <option v-for="month in filterMonth" :key="month" :value="month">{{ month }}</option>
-            </select>
-          </div>
-        </div>
+      <SectionTitleLineWithButton :icon="mdiChartPie" title="Tổng quan">
       </SectionTitleLineWithButton>
-
-      <CardBox class="mb-6">
-        <line-chart :data="PaymentsCourseChartData" class="h-96" />
-      </CardBox>
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
         <CardBoxWidget
           color="text-emerald-500"
@@ -161,7 +154,32 @@ const filter = reactive({
         </div>
       </div>
 
-      <SectionBannerStarOnGitHub class="mt-6 mb-6" />
+      <div>
+        <SectionTitleLineWithButton :icon="mdiChartPie" title="Thống kê giao dịch">
+        <div class="flex space-x-2">
+          <div class="space-x-2">
+            <label for="filter_year">Năm</label>
+            <select id="filter_year" v-model="filter.year" @change="handleFilter">
+              <option v-for="year in filterYear" :key="year" :value="year">{{ year }}</option>
+            </select>
+          </div>
+          <div class="space-x-2">
+            <label for="filter_month">Tháng</label>
+            <select id="filter_month" v-model="filter.month" @change="handleFilter">
+              <option v-for="month in filterMonth" :key="month" :value="month">{{ month }}</option>
+            </select>
+          </div>
+        </div>
+      </SectionTitleLineWithButton>
+      <div class="grid grid-cols-2 space-x-4">
+        <CardBox class="mb-6">
+          <line-chart :data="PaymentsCourseChartData" :title="'Mua khoá học'" />
+        </CardBox>
+        <CardBox class="mb-6">
+          <line-chart :data="PaymentsTutorChartData" :title="'Nhận học viên'" />
+        </CardBox>
+      </div>
+      </div>
     </SectionMain>
   </LayoutAuthenticated>
 </template>

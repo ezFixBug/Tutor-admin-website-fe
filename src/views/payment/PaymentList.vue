@@ -4,6 +4,7 @@ import $http from '@/services/httpService'
 import PaymentsCourseTable from './components/PaymentsCourseTable.vue'
 import PaymentsTutorTable from './components/PaymentsTutorTable.vue'
 
+
 const payments = ref([])
 const isLoading = ref(false)
 
@@ -38,12 +39,16 @@ getPayments()
   <LayoutAuthenticated>
     <SectionMain>
       <div class="flex justify-between items-center mb-3">
-        <h1 class="text-3xl">Lịch sử giao dịch</h1>
+        <h1 class="text-3xl">Quản lý lịch sử giao dịch</h1>
       </div>
-      <div>
-        <input v-model="filter_date.start_date" type="date" />
-        <input v-model="filter_date.end_date" type="date" />
-        <BaseButton color="info" label="Tìm kiếm" @click="filterCreate" />
+      <div class="flex space-x-3">
+        <div class="space-x-2">
+          <input id="start_payment_date" v-model="filter_date.start_date" type="date" />
+          <i class="fa-solid fa-arrow-right"></i>
+          <input id="end_payment_date" v-model="filter_date.end_date" type="date" />
+        </div>
+        <div class=""></div>
+        <BaseButton color="info" label="Lọc" @click="filterCreate" />
       </div>
       <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane key="1" tab="Thanh toán mua khoá học">

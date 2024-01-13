@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { authGuard, authTutorGuard } from '@/services/authGuard';
+import { authGuard, authTutorGuard } from '@/services/authGuard'
 import Style from '@/views/StyleView.vue'
 import Home from '@/views/HomeView.vue'
 
@@ -56,23 +56,12 @@ const routes = [
     name: 'users',
     component: () => import('@/views/users/UsersList.vue')
   },
-  // {
-  //   meta: {
-  //     title: 'Forms'
-  //   },
-  //   beforeEnter: (to, from, next) => {
-  //     authGuard(to, from, next);
-  //   },
-  //   path: '/forms',
-  //   name: 'forms',
-  //   component: () => import('@/views/FormsView.vue')
-  // },
   {
     meta: {
       title: 'Profile'
     },
     beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
+      authGuard(to, from, next)
     },
     path: '/profile',
     name: 'profile',
@@ -80,7 +69,7 @@ const routes = [
   },
   {
     beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
+      authGuard(to, from, next)
     },
     path: '/detail-tutor/:tutor_id',
     name: 'detail-tutor',
@@ -88,7 +77,7 @@ const routes = [
   },
   {
     beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
+      authGuard(to, from, next)
     },
     path: '/detail-course/:course_id',
     name: 'detail-course',
@@ -99,23 +88,34 @@ const routes = [
       title: 'Chương trình khuyến mãi'
     },
     beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
+      authGuard(to, from, next)
     },
     path: '/coupons',
     name: 'coupons',
     component: () => import('@/views/coupons/Coupons.vue')
-  }, 
+  },
   {
     meta: {
       title: 'Quản lý giao dịch'
     },
     beforeEnter: (to, from, next) => {
-      authGuard(to, from, next);
+      authGuard(to, from, next)
     },
     path: '/payments',
     name: 'payments',
     component: () => import('@/views/payment/PaymentList.vue')
   },
+  {
+    meta: {
+      title: 'Thanh toán'
+    },
+    beforeEnter: (to, from, next) => {
+      authGuard(to, from, next)
+    },
+    path: '/payments/course',
+    name: 'payments-course',
+    component: () => import('@/views/salary/SalaryList.vue')
+  }
 ]
 
 const router = createRouter({

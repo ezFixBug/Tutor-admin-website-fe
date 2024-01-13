@@ -4,7 +4,8 @@ import {
   mdiAccountCash,
   mdiBookmarkBoxMultipleOutline,
   mdiAccount,
-  mdiCash
+  mdiCash,
+  mdiCodeTags
 } from '@mdi/js'
 
 export default [
@@ -37,10 +38,9 @@ export default [
     label: 'Giao dịch',
     icon: mdiCash
   },
-  //   {
-  //   to: '/forms',
-  //   label: 'Forms',
-  //   icon: mdiSquareEditOutline
-  // },
-
+    {
+    to: '/payments/course',
+    label: 'Thanh toán',
+    icon: mdiCodeTags
+  },
 ]
