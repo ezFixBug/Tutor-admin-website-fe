@@ -53,7 +53,7 @@ const handleClose = () => {
     <CardBox is-form @submit.prevent="submitForm">
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
         <FormField label="Tên chương trình" required class="col-span-1">
-          <FormControl v-model="coupons.name" required name="name" placeholder="Nhập tên chương trình khuyến mãi" />
+          <input v-model="coupons.name" required name="name" placeholder="Nhập tên chương trình khuyến mãi" />
         </FormField>
         <FormField label="Mã khuyễn mãi" required memo="Không thể thay đổi" class="col-span-1">
           <FormControl v-model="coupons.code" required disabled name="code" />
