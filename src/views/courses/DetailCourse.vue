@@ -109,6 +109,21 @@
                 <div class="d-flex justify-content-between">
                   <h3 class="fs-24 font-weight-semi-bold pb-3">Nội dung khóa học</h3>
                 </div>
+                <div class="mb-3">
+                  <a-collapse v-model:activeKey="activeKey">
+                    <template #expandIcon="{ isActive }">
+                      <caret-right-outlined :rotate="isActive ? 90 : 0" />
+                    </template>
+                    <a-collapse-panel
+                      v-for="(lesson, index) in course.lessons"
+                      :key="index"
+                      :header="lesson.title"
+                      :show-arrow="true"
+                    >
+                      <a :href="lesson.url" target="_blank">{{ lesson.url }}</a>
+                    </a-collapse-panel>
+                  </a-collapse>
+                </div>
                 <div v-html="course.content"></div>
               </div>
               <div class="course-overview-card pt-4">
@@ -280,7 +295,7 @@
                   <div class="preview-course-feature-content pt-40px">
                     <p class="d-flex align-items-center pb-2">
                       <span class="fs-30 font-weight-semi-bold text-black">
-                        {{ course.price }}
+                        {{ formattedPrice(course.price) }}
                       </span>
                     </p>
                     <div class="buy-course-btn-box">
@@ -414,7 +429,8 @@ export default {
       list_tags: [],
       count_comment: 10,
       count_student: 50,
-      is_loading: false
+      is_loading: false,
+      activeKey: 0,
     }
   },
 
@@ -503,6 +519,10 @@ export default {
           }
         )
       }
+    },
+    formattedPrice(price) {
+      const priceFormat = Number(price).toLocaleString('vi-VN')
+      return `${priceFormat} VND`
     }
   }
 }

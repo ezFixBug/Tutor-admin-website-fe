@@ -29,6 +29,7 @@ const getPayments = async () => {
       month: filter.month
     })
     users_pending.value = response.data.users_pending
+    console.log(response.data.users_pending);
     users_completed.value = response.data.users_completed
   } catch (error) {
     console.error('Error fetching coupons:', error)
